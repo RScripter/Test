@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECAX Community</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            color: white;
+            text-align: center;
+        }
+        .title-frame {
+            width: 100%;
+            border: 2px solid red;
+            border-radius: 10px;
+            box-sizing: border-box;
+            padding: 20px;
+            background-color: black;
+            margin: 20px 0;
+        }
+        .button-frame {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .button-frame button {
+            padding: 10px;
+            font-size: 16px;
+            box-sizing: border-box;
+            border: 2px solid red;
+            border-radius: 10px;
+            background-color: black;
+            color: white;
+            cursor: pointer;
+            width: 150px;
+        }
+        .button-frame button:hover {
+            background-color: #333;
+        }
+        .content-frame {
+            padding: 20px;
+            border: 2px solid red;
+            border-radius: 10px;
+            background-color: black;
+            margin-top: 20px;
+            min-height: 400px;
+        }
+        .back-button {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid red;
+            border-radius: 10px;
+            background-color: black;
+            color: white;
+            cursor: pointer;
+        }
+        .back-button:hover {
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="title-frame">
+        <h1>ECAX Community</h1>
+    </div>
+
+    <div class="button-frame">
+        <button onclick="loadContent('scripts.html')">Scripts</button>
+        <button onclick="loadContent('upload.html')">Upload</button>
+        <button onclick="loadContent('executors.html')">Executors</button>
+    </div>
+
+    <div class="content-frame" id="contentFrame">
+        <p>Select an option above to view content.</p>
+    </div>
+
+    <button class="back-button" onclick="goBack()">Back</button>
+
+    <script>
+        function loadContent(page) {
+            const contentFrame = document.getElementById('contentFrame');
+
+            fetch(page)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Page not found');
+                    }
+                    return response.text();
+                })
+                .then(html => {
+                    contentFrame.innerHTML = html;
+                })
+                .catch(error => {
+                    contentFrame.innerHTML = '<p>Page could not be found.</p>';
+                    console.error('Error loading content:', error);
+                });
+        }
+
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+
+</body>
+</html>
